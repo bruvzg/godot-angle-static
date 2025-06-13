@@ -124,7 +124,7 @@ jobs:
         # MinGW/GCC libs using MSVCRT
         - name: 🏁 Windows - MinGW/GCC (MSVCRT) x86_64
           platform: windows
-          os: windows-2019
+          os: windows-2025
           artifact-name: godot-angle-static-x86_64-gcc-release
           artifact-path-angle: bin/libANGLE.windows.x86_64.a
           artifact-path-egl: bin/libEGL.windows.x86_64.a
@@ -136,7 +136,7 @@ jobs:
 
         - name: 🏁 Windows - MinGW/GCC (MSVCRT) x86_32
           platform: windows
-          os: windows-2019
+          os: windows-2025
           artifact-name: godot-angle-static-x86_32-gcc-release
           artifact-path-angle: bin/libANGLE.windows.x86_32.a
           artifact-path-egl: bin/libEGL.windows.x86_32.a
@@ -165,8 +165,7 @@ jobs:
         if: ${{ matrix.platform == 'macos' || matrix.platform == 'ios' }}
         run: sudo xcode-select -switch "${XCODE_DEV_PATH}"
 
-      - name: Install SCons (Native env)
-        if: ${{ matrix.mingw != 'yes' }}
+      - name: Install SCons
         run: |
           python -m pip install scons==4.0.0
 
@@ -183,27 +182,12 @@ jobs:
           mv llvm-mingw-* "$HOME/llvm-mingw"
           echo "$HOME/llvm-mingw/bin" >> $GITHUB_PATH
 
-      - name: Setup MinGW/MSYS2
-        if: ${{ matrix.mingw == 'yes' }}
-        uses: msys2/setup-msys2@v2
-        with:
-          update: true
-          msystem: ${{matrix.msys}}
-          install: mingw-w64-${{matrix.msysenv}}-gcc mingw-w64-${{matrix.msysenv}}-scons
-
       - name: Prepare ANGLE source
         shell: bash
         run: |
           ./update_angle.sh
 
-      - name: Build ANGLE (Native env)
-        if: ${{ matrix.mingw != 'yes' }}
-        run: |
-          scons platform=${{ matrix.platform }} ${{ matrix.flags }} optimize=speed
-
-      - name: Build ANGLE (MSYS2 env)
-        if: ${{ matrix.mingw == 'yes' }}
-        shell: msys2 {0}
+      - name: Build ANGLE
         run: |
           scons platform=${{ matrix.platform }} ${{ matrix.flags }} optimize=speed
 
