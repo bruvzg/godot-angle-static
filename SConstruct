@@ -447,6 +447,7 @@ angle_sources = [
     "angle/src/image_util/loadimage.cpp",
     "angle/src/image_util/storeimage_paletted.cpp",
     "angle/src/common/third_party/xxhash/src/xxhash.c",
+    # Note: Modified "zlib" version using "_Cr_z" prefix for exported symbols.
     "third_party/zlib/google/compression_utils_portable.cc",
     "third_party/zlib/adler32.c",
     "third_party/zlib/compress.c",
@@ -465,28 +466,7 @@ angle_sources = [
     "third_party/zlib/trees.c",
     "third_party/zlib/uncompr.c",
     "third_party/zlib/zutil.c",
-    "third_party/astc-encoder/src/Source/astcenc_averages_and_directions.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_block_sizes.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_color_quantize.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_color_unquantize.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_compress_symbolic.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_compute_variance.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_decompress_symbolic.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_diagnostic_trace.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_entry.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_find_best_partitioning.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_ideal_endpoints_and_weights.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_image.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_integer_sequence.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_mathlib_softfloat.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_mathlib.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_partition_tables.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_percentile_tables.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_pick_best_endpoint_format.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_quantization.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_symbolic_physical.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_weight_align.cpp",
-    "third_party/astc-encoder/src/Source/astcenc_weight_quant_xfer_tables.cpp",
+    # Note: Do not include "astcenc", it is part of the engine.
 ]
 if env["platform"] == "macos":
     angle_sources += [
